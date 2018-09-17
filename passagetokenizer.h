@@ -8,12 +8,12 @@ enum sectionType = {LINK, GOTO, SET, IF, ELSEIF, ELSE, BLOCK, TEXT};
 
 class SectionToken() {
 	public:
-		SectionToken();
-		string getText;
-		int getType;
+		SectionToken(string str);
+		string getText();
+		sectionType getType();
 	private:
 		string text;
-		int type;
+		sectionType type;
 }
 
 class PassageTokenizer() {
