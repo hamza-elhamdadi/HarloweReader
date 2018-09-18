@@ -10,7 +10,7 @@ PassageToken::getText() {
 }
 
 StoryTokenizer::StoryTokenizer(string str) {
-	passageText = str;
+	storyText = str;
 }
 
 bool StoryTokenizer::hasNextPassage() {

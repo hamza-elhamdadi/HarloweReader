@@ -20,7 +20,7 @@ class StoryTokenizer() {
 		PassageToken nextPassage();
 	private:
 		string storyText;
-		int location;
+		int location = 0;
 }
 
 #endif
