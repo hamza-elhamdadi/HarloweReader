@@ -15,11 +15,11 @@ StoryTokenizer::StoryTokenizer(string str) {
 }
 
 bool StoryTokenizer::hasNextPassage() {
-	if (storyTextSource.find("<tw-passagedata ", location) != string::npos) {
-		return true;
+	if (storyTextSource.find("<tw-passagedata ", location) == string::npos) {
+		return false;
 	}
 	else {
-		return false;
+		return true;
 	}
 }
 

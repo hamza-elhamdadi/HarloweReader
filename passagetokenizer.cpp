@@ -25,6 +25,8 @@ bool PassageTokenizer::hasNextSection(){
 }
 
 SectionToken PassageTokenizer::nextSection(){
+  int sectionBeginning;
+
   SectionToken stok("", LINK);
   return stok;
 }
