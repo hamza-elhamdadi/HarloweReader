@@ -1,3 +1,4 @@
+#include "storytokenizer.h"
 #include <iostream>
 using namespace std;
 
@@ -5,12 +6,12 @@ PassageToken::PassageToken(string str) {
 	passageText = str;
 }
 
-PassageToken::getText() {
+PassageToken::getText() const{
 	return passageText;
 }
 
 StoryTokenizer::StoryTokenizer(string str) {
-	storyText = str;
+	storyTextSource = str;
 }
 
 bool StoryTokenizer::hasNextPassage() {
@@ -25,11 +26,10 @@ bool StoryTokenizer::hasNextPassage() {
 PassageToken StoryTokenizer::nextPassage) {
 	int passageBeginning;
 
-	passageBeginning = storyText.find("<tw-passagedata ", location);
-	location = storyText.find("</tw-passagedata>", passageBeginning) + 17;
+	passageBeginning = storyTextSource.find("<tw-passagedata ", location);
+	location = storyTextSource.find("</tw-passagedata>", passageBeginning) + 17;
 
-	PassageToken ptok(passageText.substr(passageBeginning, location - passageBeginning));
+	PassageToken ptok(storyTextSource.substr(passageBeginning, location - passageBeginning));
 
 	return ptok;
 }
-

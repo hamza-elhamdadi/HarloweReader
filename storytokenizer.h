@@ -8,7 +8,7 @@ using namespace std;
 class PassageToken() {
 	public:
 		PassageToken(string str);
-		string getText();
+		string getText() const;
 	private:
 		string passageText;
 }
@@ -19,7 +19,7 @@ class StoryTokenizer() {
 		bool hasNextPassage();
 		PassageToken nextPassage();
 	private:
-		string storyText;
+		string storyTextSource;
 		int location = 0;
 }
 

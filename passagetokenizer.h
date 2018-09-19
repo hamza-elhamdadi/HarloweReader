@@ -4,16 +4,16 @@
 #include <string>
 using namespace std;
 
-enum sectionType = {LINK, GOTO, SET, IF, ELSEIF, ELSE, BLOCK, TEXT};
+enum type_t = {LINK, GOTO, SET, IF, ELSEIF, ELSE, BLOCK, TEXT};
 
 class SectionToken() {
 	public:
-		SectionToken(string str);
-		string getText();
-		sectionType getType();
+		SectionToken(string str, type_t type);
+		string getText() const;
+		type_t getType() const;
 	private:
-		string text;
-		sectionType type;
+		string sectionText;
+		sectionType sectionType;
 }
 
 class PassageTokenizer() {
@@ -21,6 +21,9 @@ class PassageTokenizer() {
 		PassageTokenizer(string str);
 		bool hasNextSection();
 		SectionToken nextSection();
+	private:
+		string passageTextSource;
+		int location;
 }
 
 #endif PASSAGETOKENIZER_H
