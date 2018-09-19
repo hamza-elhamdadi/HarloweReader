@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "passagetokenizer.h"
 using namespace std;
 
 SectionToken::SectionToken(string str, type_t type) {
@@ -11,7 +12,7 @@ string SectionToken::getText() const {
   return sectionText;
 }
 
-string SectionToken::getType() const {
+type_t SectionToken::getType() const {
   return sectionType;
 }
 

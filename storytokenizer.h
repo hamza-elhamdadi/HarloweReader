@@ -5,15 +5,15 @@
 #include <string>
 using namespace std;
 
-class PassageToken() {
+class PassageToken {
 	public:
 		PassageToken(string str);
 		string getText() const;
 	private:
 		string passageText;
-}
+};
 
-class StoryTokenizer() {
+class StoryTokenizer {
 	public:
 		StoryTokenizer(string str);
 		bool hasNextPassage();
@@ -21,6 +21,6 @@ class StoryTokenizer() {
 	private:
 		string storyTextSource;
 		int location = 0;
-}
+};
 
 #endif

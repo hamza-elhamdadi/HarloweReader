@@ -6,7 +6,7 @@ PassageToken::PassageToken(string str) {
 	passageText = str;
 }
 
-PassageToken::getText() const{
+string PassageToken::getText() const{
 	return passageText;
 }
 
@@ -15,7 +15,7 @@ StoryTokenizer::StoryTokenizer(string str) {
 }
 
 bool StoryTokenizer::hasNextPassage() {
-	if (passageText.find("<tw-passagedata ") != -1) {
+	if (storyTextSource.find("<tw-passagedata ") != -1) {
 		return true;
 	}
 	else {
@@ -23,7 +23,7 @@ bool StoryTokenizer::hasNextPassage() {
 	}
 }
 
-PassageToken StoryTokenizer::nextPassage) {
+PassageToken StoryTokenizer::nextPassage() {
 	int passageBeginning;
 
 	passageBeginning = storyTextSource.find("<tw-passagedata ", location);
