@@ -15,7 +15,7 @@ StoryTokenizer::StoryTokenizer(string str) {
 }
 
 bool StoryTokenizer::hasNextPassage() {
-	if (storyTextSource.find("<tw-passagedata ") != -1) {
+	if (storyTextSource.find("<tw-passagedata ", location) != string::npos) {
 		return true;
 	}
 	else {
