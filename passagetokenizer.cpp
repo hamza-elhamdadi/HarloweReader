@@ -12,6 +12,10 @@ string SectionToken::getText() const {
   return sectionText;
 }
 
+void SectionToken::setType(type_t type){
+  sectionType = type;
+}
+
 type_t SectionToken::getType() const {
   return sectionType;
 }
@@ -21,12 +25,64 @@ PassageTokenizer::PassageTokenizer(string str){
 }
 
 bool PassageTokenizer::hasNextSection(){
-  return false;
+  if(passageTextSource.find("(set:", pLocation) != string::npos){
+    return true;
+  }
+  else if(passageTextSource.find("(go-to:", pLocation) != string::npos){
+    return true;
+  }
+  else if(passageTextSource.find("(if:", pLocation) != string::npos){
+    return true;
+  }
+  else if(passageTextSource.find("(else-if:", pLocation) != string::npos){
+    return true;
+  }
+  else if(passageTextSource.find("(else:", pLocation) != string::npos){
+    return true;
+  }
+  else if(passageTextSource.find("[[", pLocation) != string::npos){
+    return true;
+  }
+  else{
+    return false;
+  }
 }
 
 SectionToken PassageTokenizer::nextSection(){
   int sectionBeginning;
+  type_t tempType;
 
-  SectionToken stok("", LINK);
+  if(passageTextSource.find("(set:", pLocation) != string::npos){
+    tempType = SET;
+    sectionBeginning = passageTextSource.find("(set:", pLocation);
+    pLocation = passageTextSource.find(")", sectionBeginning) + 1;
+  }
+  else if(passageTextSource.find("(go-to:", pLocation) != string::npos){
+    tempType = GOTO;
+    sectionBeginning = passageTextSource.find("(go-to:", pLocation);
+    pLocation = passageTextSource.find(")", sectionBeginning) + 1;
+  }
+  else if(passageTextSource.find("(if:", pLocation) != string::npos){
+    tempType = IF;
+    sectionBeginning = passageTextSource.find("(if:", pLocation);
+    pLocation = passageTextSource.find(")", sectionBeginning) + 1;
+  }
+  else if(passageTextSource.find("(else-if:", pLocation) != string::npos){
+    tempType = ELSEIF;
+    sectionBeginning = passageTextSource.find("(else-if:", pLocation);
+    pLocation = passageTextSource.find(")", sectionBeginning) + 1;
+  }
+  else if(passageTextSource.find("(else:", pLocation) != string::npos){
+    tempType = ELSE;
+    sectionBeginning = passageTextSource.find("(else:", pLocation);
+    pLocation = passageTextSource.find(")", sectionBeginning) + 1;
+  }
+  else if(passageTextSource.find("[[", pLocation) != string::npos){
+    tempType = LINK;
+    sectionBeginning = passageTextSource.find("[[", pLocation);
+    pLocation = passageTextSource.find("]]", sectionBeginning) + 2;
+  }
+
+  SectionToken stok(passageTextSource.substr(sectionBeginning, pLocation - sectionBeginning), tempType);
   return stok;
 }
