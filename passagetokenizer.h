@@ -10,7 +10,6 @@ class SectionToken {
 	public:
 		SectionToken(string str, type_t type);
 		string getText() const;
-		void setType(type_t type);
 		type_t getType() const;
 	private:
 		string sectionText;
