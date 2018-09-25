@@ -107,10 +107,14 @@ SectionToken PassageTokenizer::nextSection() {
 		if (passageTextSource.substr(pLocation, 1) == "]") {
 			pLocation = passageTextSource.find("]", pLocation) + 1;
 		}
-		if ((passageTextSource.find("[", pLocation) == string::npos) && (passageTextSource.find("]", pLocation) != string::npos)) {
+		else if((passageTextSource.find("[", pLocation) != string::npos) && (passageTextSource.find("]", pLocation) != string::npos)) {
 			pLocation = passageTextSource.find("]", pLocation) + 1;
 		}
-		if (passageTextSource.substr(pLocation, 1) == "]") {
+    if((passageTextSource.find("[", pLocation) == string::npos) && (passageTextSource.find("]", pLocation) != string::npos)) {
+			pLocation = passageTextSource.find("]", pLocation) + 1;
+		}
+    //this makes sure any extra ] are collected
+		if(passageTextSource.substr(pLocation, 1) == "]") {
 			pLocation = passageTextSource.find("]", pLocation) + 1;
 		}
 	}
