@@ -97,26 +97,15 @@ SectionToken PassageTokenizer::nextSection() {
 		sectionBeginning = passageTextSource.find("[[", pLocation);
 		pLocation = passageTextSource.find("]]", sectionBeginning) + 2;
 	}
+  //(passageTextSource.find("(else:", pLocation) < passageTextSource.find("]", pLocation) && passageTextSource.find("else:", pLocation) != string::npos)
 	else {
 		tempType = BLOCK;
 		sectionBeginning = pLocation;
-		if ((passageTextSource.find("[[", pLocation) != string::npos) && (passageTextSource.find("]]", pLocation) == passageTextSource.find("]", pLocation))) {
-			pLocation = passageTextSource.find("]]", pLocation) + 1;
-		}
-		pLocation = passageTextSource.find("]", pLocation) + 1;
-		if (passageTextSource.substr(pLocation, 1) == "]") {
-			pLocation = passageTextSource.find("]", pLocation) + 1;
-		}
-		else if((passageTextSource.find("[", pLocation) != string::npos) && (passageTextSource.find("]", pLocation) != string::npos)) {
-			pLocation = passageTextSource.find("]", pLocation) + 1;
-		}
-    if((passageTextSource.find("[", pLocation) == string::npos) && (passageTextSource.find("]", pLocation) != string::npos)) {
-			pLocation = passageTextSource.find("]", pLocation) + 1;
-		}
-    //this makes sure any extra ] are collected
-		if(passageTextSource.substr(pLocation, 1) == "]") {
-			pLocation = passageTextSource.find("]", pLocation) + 1;
-		}
+		while(passageTextSource.find("[[", pLocation) != string::npos && passageTextSource.find("[[", pLocation) < passageTextSource.find("]", pLocation))
+      pLocation = passageTextSource.find("]]", pLocation) + 2;
+    while((passageTextSource.find("(if:", pLocation) < passageTextSource.find("]", pLocation) && passageTextSource.find("(if:", pLocation) != string::npos) || (passageTextSource.find("(else-if:", pLocation) < passageTextSource.find("]", pLocation) && passageTextSource.find("else-if:", pLocation) != string::npos) || (passageTextSource.find("(else:", pLocation) < passageTextSource.find("]", pLocation) && passageTextSource.find("else:", pLocation) != string::npos))
+      pLocation = passageTextSource.find("]", pLocation) + 1;
+    pLocation = passageTextSource.find("]", pLocation) + 1;
 	}
 
 	SectionToken stok(passageTextSource.substr(sectionBeginning, pLocation - sectionBeginning), tempType);
