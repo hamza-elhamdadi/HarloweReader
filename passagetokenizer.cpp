@@ -101,10 +101,18 @@ SectionToken PassageTokenizer::nextSection() {
 	else {
 		tempType = BLOCK;
 		sectionBeginning = pLocation;
-		while(passageTextSource.find("[[", pLocation) != string::npos && passageTextSource.find("[[", pLocation) < passageTextSource.find("]", pLocation))
+		while(passageTextSource.find("[[", pLocation) != string::npos && passageTextSource.find("[[", pLocation) < passageTextSource.find("]", pLocation)){
       pLocation = passageTextSource.find("]]", pLocation) + 2;
-    while((passageTextSource.find("(if:", pLocation) < passageTextSource.find("]", pLocation) && passageTextSource.find("(if:", pLocation) != string::npos) || (passageTextSource.find("(else-if:", pLocation) < passageTextSource.find("]", pLocation) && passageTextSource.find("else-if:", pLocation) != string::npos) || (passageTextSource.find("(else:", pLocation) < passageTextSource.find("]", pLocation) && passageTextSource.find("else:", pLocation) != string::npos))
+      while((passageTextSource.find("(if:", pLocation) < passageTextSource.find("]", pLocation) && passageTextSource.find("(if:", pLocation) != string::npos) || (passageTextSource.find("(else-if:", pLocation) < passageTextSource.find("]", pLocation) && passageTextSource.find("else-if:", pLocation) != string::npos) || (passageTextSource.find("(else:", pLocation) < passageTextSource.find("]", pLocation) && passageTextSource.find("else:", pLocation) != string::npos)){
+        pLocation = passageTextSource.find("]", pLocation) + 1;
+      }
+    }
+    while((passageTextSource.find("(if:", pLocation) < passageTextSource.find("]", pLocation) && passageTextSource.find("(if:", pLocation) != string::npos) || (passageTextSource.find("(else-if:", pLocation) < passageTextSource.find("]", pLocation) && passageTextSource.find("else-if:", pLocation) != string::npos) || (passageTextSource.find("(else:", pLocation) < passageTextSource.find("]", pLocation) && passageTextSource.find("else:", pLocation) != string::npos)){
       pLocation = passageTextSource.find("]", pLocation) + 1;
+      while(passageTextSource.find("[[", pLocation) != string::npos && passageTextSource.find("[[", pLocation) < passageTextSource.find("]", pLocation)){
+        pLocation = passageTextSource.find("]]", pLocation) + 2;
+      }
+    }
     pLocation = passageTextSource.find("]", pLocation) + 1;
 	}
 
